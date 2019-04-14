@@ -4,6 +4,7 @@ using Serilog.Events;
 using Serilog.Sinks.Graylog.Core;
 using Serilog.Sinks.Graylog.Core.Helpers;
 using Serilog.Sinks.Graylog.Core.Transport;
+using System;
 
 namespace Serilog.Sinks.Graylog.Batching
 {
@@ -28,6 +29,9 @@ namespace Serilog.Sinks.Graylog.Batching
         /// <param name="loggerSinkConfiguration">The logger sink configuration.</param>
         /// <param name="hostnameOrAddress">The hostname or address.</param>
         /// <param name="port">The port.</param>
+        /// <param name="batchSizeLimit">The batchsize limit.</param>
+        /// <param name="period">The batching period.</param>
+        /// <param name="queueLimit">The queue limit.</param>
         /// <param name="transportType">Type of the transport.</param>
         /// <param name="minimumLogEventLevel">The minimum log event level.</param>
         /// <param name="messageIdGeneratorType">Type of the message identifier generator.</param>
@@ -38,6 +42,9 @@ namespace Serilog.Sinks.Graylog.Batching
         public static LoggerConfiguration Graylog(this LoggerSinkConfiguration loggerSinkConfiguration,
                                                   string hostnameOrAddress,
                                                   int port,
+                                                  int batchSizeLimit,
+                                                  TimeSpan period,
+                                                  int queueLimit,
                                                   TransportType transportType,
                                                   LogEventLevel minimumLogEventLevel = LevelAlias.Minimum,
                                                   MessageIdGeneratortype messageIdGeneratorType = GraylogSinkOptionsBase.DefaultMessageGeneratorType,
@@ -49,6 +56,9 @@ namespace Serilog.Sinks.Graylog.Batching
             {
                 HostnameOrAddress = hostnameOrAddress,
                 Port = port,
+                BatchSizeLimit = batchSizeLimit,
+                Period = period,
+                QueueLimit = queueLimit,
                 TransportType = transportType,
                 MinimumLogEventLevel = minimumLogEventLevel,
                 MessageGeneratorType = messageIdGeneratorType,
